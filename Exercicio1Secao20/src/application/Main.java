@@ -3,7 +3,7 @@ package application;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.text.ParseException;
-import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -43,9 +43,13 @@ public class Main {
 
 			System.out.println("Enter salary:");
 			Double salaryIO = sc.nextDouble();
+			
+			Comparator<String> comp = (s1, s2) -> s1.toUpperCase().compareTo(s2.toUpperCase());
 
-			List<Employee> list = employees.stream()
+			List<String> list = employees.stream()
 					.filter(s -> s.getSalary() > salaryIO)
+					.map(n -> n.getName())
+					.sorted(comp.reversed())
 					.collect(Collectors.toList());
 
 			System.out.println("Email of people whose salary is more than 2000.00:");
